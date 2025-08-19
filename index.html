@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReliableCities</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titan+One:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Unifor&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="lobby" class="screen">
+        <div class="stars" id="stars"></div>
+        <div class="container">
+            <img src="attached_assets/reliable (1)_1752855319997.png" alt="Reliable Cities" class="logo-img">
+            <p>Sprawdź czy uda Ci się odgadnąć różne miasta!</p>
+            <div class="fullscreen-recommendation">🖥️ Zalecane jest granie w trybie pełnoekranowym dla najlepszych
+                wrażeń!</div>
+            <div class="lobby-score">Twoje punkty: <span id="lobbyScore">0</span></div>
+            <div class="lobby-level" id="lobbyLevel">
+                <div class="level-number">Poziom 1</div>
+                <div class="xp-progress">
+                    <div class="xp-bar">
+                        <div class="xp-fill" style="width: 0%"></div>
+                    </div>
+                    <div class="xp-text">0/100 XP</div>
+                </div>
+            </div>
+            <button id="playButton" class="play-btn">Zagraj</button>
+            <button id="shopButton" class="shop-btn">Sklep</button>
+            <button id="achievementsButton" class="achievements-btn">Osiągnięcia</button>
+
+            <button id="mysteryButton" class="mystery-btn hidden">Zagadka</button>
+            <button id="codesButton" class="codes-btn">Kody</button>
+            <button id="statisticsButton" class="statistics-btn">Statystyki</button>
+            <button id="hardcoreModeButton" class="hardcore-btn">Tryb Hardcore</button>
+            <div id="vipStatus" class="vip-status hidden">VIP</div>
+            <div id="hardcoreModeIndicator" class="hardcore-indicator hidden">TRYB HARDCORE AKTYWNY</div>
+            <div class="version-text">WERSJA GRY 0.8 BETA    Gra stworzona przez Rzetelne Studio Marcela i Oliwiera! </div>
+            <img src="attached_assets/gra_1752856522481.png" alt="Gra stworzona przez rzetelne studio"
+                class="author-img">
+        </div>
+    </div>
+
+    <div id="gameMode" class="screen hidden">
+        <div class="circles" id="gameModeCircles"></div>
+        <div class="joysticks" id="joysticks"></div>
+        <div id="hardcoreModeIndicatorGameMode" class="hardcore-indicator hidden">TRYB HARDCORE AKTYWNY</div>
+        <div class="container">
+            <h1>Wybierz tryb gry</h1>
+            <div class="game-modes">
+                <button id="cluesGameButton" class="game-mode-btn">
+                    🔍 Zgadnij miasto po podpowiedziach!
+                </button>
+                <button id="photoGameButton" class="game-mode-btn locked">
+                    🔒 Zgadnij miasto po zdjęciu!
+                </button>
+                <button id="capitalGameButton" class="game-mode-btn locked">
+                    🔒 Zgadnij stolicę po kraju!
+                </button>
+            </div>
+            <button id="backToLobbyFromGameMode" class="back-btn">Powrót do lobby</button>
+        </div>
+    </div>
+
+    <div id="game" class="screen hidden">
+        <div class="circles" id="circles"></div>
+        <div id="hardcoreModeIndicatorGame" class="hardcore-indicator hidden">TRYB HARDCORE AKTYWNY</div>
+        <div class="container">
+            <div class="timer" id="timer">Czas: 30s</div>
+            <div class="score">Punkty: <span id="score">0</span></div>
+            <div class="level-display">
+                <div class="level-info">
+                    <span class="level-text">Poziom <span id="level">1</span></span>
+                    <span class="xp-text" id="xp">0/100 XP</span>
+                </div>
+            </div>
+            <div class="remaining-cities" id="remainingCities">Pozostałe miasta w tej rundzie: 40/40</div>
+            <h2>Zgadnij miasto:</h2>
+            <div class="clues">
+                <div class="clue hidden" id="clue1"></div>
+                <div class="clue hidden" id="clue2"></div>
+                <div class="clue hidden" id="clue3"></div>
+            </div>
+            <button id="hintButton" class="hint-btn">Pokaż kolejną wskazówkę</button>
+            <button id="skipButton" class="skip-btn">Pomiń miasto</button>
+            <input type="text" id="cityInput" placeholder="Wpisz nazwę miasta...">
+            <button id="submitButton">Sprawdź</button>
+            <div id="message" class="message"></div>
+            <button id="nextButton" class="hidden">Następne miasto</button>
+            <button id="backToLobby" class="back-btn">Powrót do lobby</button>
+        </div>
+    </div>
+
+    <div id="photoGame" class="screen hidden">
+        <div class="circles" id="photoGameCircles"></div>
+        <div id="hardcoreModeIndicatorPhotoGame" class="hardcore-indicator hidden">TRYB HARDCORE AKTYWNY</div>
+        <div class="container">
+            <div class="timer" id="photoGameTimer">Czas: 30s</div>
+            <div class="score">Punkty: <span id="photoGameScore">0</span></div>
+            <div class="level-display">
+                <div class="level-info">
+                    <span class="level-text">Poziom <span id="photoGameLevel">1</span></span>
+                    <span class="xp-text" id="photoGameXp">0/100 XP</span>
+                </div>
+            </div>
+            <div class="remaining-cities" id="photoGameRemainingCities">Pozostałe miasta w tej rundzie: 13/13</div>
+            <h2>Zgadnij miasto na podstawie zdjęcia:</h2>
+            <img id="photoGameCityImage" src="" alt="Zdjęcie miasta" class="city-photo">
+            <input type="text" id="photoGameCityInput" placeholder="Wpisz nazwę miasta...">
+            <button id="photoGameSubmitButton">Sprawdź</button>
+            <div id="photoGameMessage" class="message"></div>
+            <button id="photoGameSkipButton" class="skip-btn">Pomiń miasto</button>
+            <button id="photoGameNextButton" class="hidden">Następne miasto</button>
+            <button id="backToGameModeFromPhotoGame" class="back-btn">Powrót do trybu gry</button>
+        </div>
+    </div>
+
+    <div id="continentSelection" class="screen hidden">
+        <div class="joysticks" id="continentJoysticks"></div>
+        <div id="hardcoreModeIndicatorContinent" class="hardcore-indicator hidden">TRYB HARDCORE AKTYWNY</div>
+        <div class="container">
+            <h1>Wybierz kontynent</h1>
+            <div class="continent-modes">
+                <button id="europeButton" class="continent-btn">
+                    🇪🇺 Europa
+                </button>
+                <button id="asiaButton" class="continent-btn locked">
+                    🔒 Azja <span class="level-requirement">Poziom 10</span>
+                </button>
+                <button id="africaButton" class="continent-btn locked">
+                    🔒 Afryka
+                </button>
+                <button id="americaButton" class="continent-btn locked">
+                    🔒 Ameryka
+                </button>
+            </div>
+            <button id="backToGameModeFromContinent" class="back-btn">Powrót do trybu gry</button>
+        </div>
+    </div>
+
+    <div id="capitalGame" class="screen hidden">
+        <div class="circles" id="capitalGameCircles"></div>
+        <div id="hardcoreModeIndicatorCapitalGame" class="hardcore-indicator hidden">TRYB HARDCORE AKTYWNY</div>
+        <div class="container">
+            <div class="timer" id="capitalGameTimer">Czas: 30s</div>
+            <div class="score">Punkty: <span id="capitalGameScore">0</span></div>
+            <div class="level-display">
+                <div class="level-info">
+                    <span class="level-text">Poziom <span id="capitalGameLevel">1</span></span>
+                    <span class="xp-text" id="capitalGameXp">0/100 XP</span>
+                </div>
+            </div>
+            <div class="remaining-cities" id="capitalGameRemainingCities">Pozostałe kraje w tej rundzie: 47/47</div>
+            <h2>Podaj stolicę kraju:</h2>
+            <div class="country-name" id="countryName">Polska</div>
+            <input type="text" id="capitalGameInput" placeholder="Wpisz nazwę stolicy...">
+            <button id="capitalGameSubmitButton">Sprawdź</button>
+            <div id="capitalGameMessage" class="message"></div>
+            <button id="capitalGameSkipButton" class="skip-btn">Pomiń kraj</button>
+            <button id="capitalGameNextButton" class="hidden">Następny kraj</button>
+            <button id="backToContinentFromCapitalGame" class="back-btn">Powrót do wyboru kontynentu</button>
+        </div>
+    </div>
+
+    <div id="shop" class="screen hidden">
+        <div class="stars" id="shopStars"></div>
+        <div class="container shop-container">
+            <img src="sklepik.png" alt="Sklep" class="shop-logo">
+            <div class="lobby-score">Twoje punkty: <span id="shopScore">0</span></div>
+
+            <div class="shop-items">
+                <div class="shop-item" id="vipItem">
+                    <h3>VIP</h3>
+                    <p>Otrzymaj ekskluzywny status VIP! Twój status będzie widoczny w lobby z pulsującą animacją.</p>
+                    <div class="price">Cena: 50 punktów</div>
+                    <button class="buy-btn" id="buyVip">Kup VIP</button>
+                </div>
+
+                <div class="shop-item" id="photoModeItem">
+                    <h3>Nowy tryb gry</h3>
+                    <p>Odblokuj nowy tryb gry! Zgaduj miasta na podstawie zdjęć i ciesz się nowym wyzwaniem.</p>
+                    <div class="price">Cena: 100 punktów</div>
+                    <button class="buy-btn" id="buyPhotoMode">Kup tryb gry</button>
+                </div>
+
+                <div class="shop-item" id="expertItem">
+                    <h3>EKSPERT</h3>
+                    <p>Podwój swoje punkty! Wszystkie punkty zdobywane podczas gry będą mnożone przez 2.</p>
+                    <div class="price">Cena: 150 punktów</div>
+                    <button class="buy-btn" id="buyExpert">Kup EKSPERTA</button>
+                </div>
+
+                <div class="shop-item" id="mysteryItem">
+                    <h3>TAJEMNICA</h3>
+                    <p>Przekonasz się co to jest dopiero po zakupie... Czy odważysz się poznać tajemnicę?</p>
+                    <div class="price">Cena: 200 punktów</div>
+                    <button class="buy-btn" id="buyMystery">Kup TAJEMNICĘ</button>
+                </div>
+            </div>
+
+            <button id="backToLobbyFromShop" class="back-btn">Powrót do lobby</button>
+        </div>
+    </div>
+
+    <div id="riddle" class="screen hidden">
+        <div class="question-marks" id="questionMarks"></div>
+        <div class="container riddle-container">
+            <h1>🔮 Zagadka</h1>
+            <div class="riddle-progress" id="riddleProgress">Zagadka 1/3</div>
+            <div class="riddle-question" id="riddleQuestion">Jak nazywa się pies, który spierdala?</div>
+            <input type="text" id="riddleInput" class="riddle-input" placeholder="Wpisz odpowiedź...">
+            <button id="riddleSubmit" class="riddle-submit">Sprawdź</button>
+            <div id="riddleMessage" class="message"></div>
+            <button id="backToLobbyFromRiddle" class="back-btn">Powrót do lobby</button>
+        </div>
+    </div>
+
+
+
+    <div id="codes" class="screen hidden">
+        <div class="matrix-bg" id="matrixBg"></div>
+        <div class="container codes-container">
+            <h1>💻 KODY</h1>
+            <div class="lobby-score">Twoje punkty: <span id="codesScore">0</span></div>
+            <div class="codes-info">Wprowadź kod aktywacyjny aby otrzymać nagrody:</div>
+            <input type="text" id="codeInput" class="code-input" placeholder="Wpisz kod...">
+            <button id="codeSubmit" class="code-submit">AKTYWUJ KOD</button>
+            <div id="codeMessage" class="message"></div>
+            <button id="backToLobbyFromCodes" class="back-btn">Powrót do lobby</button>
+        </div>
+    </div>
+
+    <div id="achievements" class="screen hidden">
+        <div class="achievements-bg" id="achievementsBg"></div>
+        <div class="container achievements-container">
+            <img src="attached_assets/osiagniecia_1752882871100.png" alt="Osiągnięcia" class="achievements-logo-main">
+            <div class="achievements-stats">
+                <div class="stat">Odblokowane: <span id="unlockedCount">0</span>/<span id="totalCount">20</span></div>
+                <div class="stat">Postęp: <span id="progressPercent">0</span>%</div>
+            </div>
+            <div class="achievements-list" id="achievementsList">
+                <!-- Osiągnięcia będą generowane przez JavaScript -->
+            </div>
+            <button id="backToLobbyFromAchievements" class="back-btn">Powrót do lobby</button>
+        </div>
+    </div>
+
+    <div id="statistics" class="screen hidden">
+        <div class="statistics-bg" id="statisticsBg"></div>
+        <div class="container statistics-container">
+            <img src="attached_assets/statystyki_1752956600059.png" alt="Statystyki" class="statistics-logo">
+
+            <div class="statistics-overview">
+                <div class="stat-card main-stats">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="totalPointsEarned">0</div>
+                        <div class="stat-label">Aktualna ilość punktów</div>
+                    </div>
+                </div>
+
+                <div class="stat-card level-stats">
+                    <div class="stat-icon">🚀</div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="currentLevelDisplay">1</div>
+                        <div class="stat-label">Aktualny poziom</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="statistics-grid">
+                <div class="stat-category">
+                    <h3 class="category-title">🏙️ MIASTA</h3>
+                    <div class="stat-row">
+                        <span class="stat-name">Zgadnięte miasta:</span>
+                        <span class="stat-value" id="citiesGuessed">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Nieudane próby:</span>
+                        <span class="stat-value error" id="citiesFailed">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Procent skuteczności:</span>
+                        <span class="stat-value success" id="citiesSuccessRate">0%</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Najszybsze zgadnięcie:</span>
+                        <span class="stat-value special" id="fastestCityGuess">999s</span>
+                    </div>
+                </div>
+
+                <div class="stat-category">
+                    <h3 class="category-title">🏛️ STOLICE</h3>
+                    <div class="stat-row">
+                        <span class="stat-name">Zgadnięte stolice:</span>
+                        <span class="stat-value" id="capitalsGuessed">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Europejskie stolice:</span>
+                        <span class="stat-value" id="europeanCapitals">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Azjatyckie stolice:</span>
+                        <span class="stat-value" id="asianCapitals">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Najszybsza stolica:</span>
+                        <span class="stat-value special" id="fastestCapitalGuess">999s</span>
+                    </div>
+                </div>
+
+                <div class="stat-category">
+                    <h3 class="category-title">📸 ZDJĘCIA</h3>
+                    <div class="stat-row">
+                        <span class="stat-name">Zgadnięte ze zdjęć:</span>
+                        <span class="stat-value" id="photoGuessed">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Procent skuteczności:</span>
+                        <span class="stat-value success" id="photoSuccessRate">0%</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Najszybsze zdjęcie:</span>
+                        <span class="stat-value special" id="fastestPhotoGuess">999s</span>
+                    </div>
+                </div>
+
+                <div class="stat-category">
+                    <h3 class="category-title">🔥 SERIA & REKORDY</h3>
+                    <div class="stat-row">
+                        <span class="stat-name">Najdłuższa seria:</span>
+                        <span class="stat-value special" id="longestStreak">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Aktualna seria:</span>
+                        <span class="stat-value" id="currentStreakDisplay">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Bez wskazówek:</span>
+                        <span class="stat-value success" id="withoutHints">0</span>
+                    </div>
+                </div>
+
+                <div class="stat-category">
+                    <h3 class="category-title">💰 EKONOMIA</h3>
+                    <div class="stat-row">
+                        <span class="stat-name">Aktualny stan:</span>
+                        <span class="stat-value" id="currentBalance">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Wydane w sklepie:</span>
+                        <span class="stat-value" id="totalSpent">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Zakupy w sklepie:</span>
+                        <span class="stat-value" id="shopPurchases">0</span>
+                    </div>
+                </div>
+
+                <div class="stat-category">
+                    <h3 class="category-title">💀 TRYB HARDCORE</h3>
+                    <div class="stat-row">
+                        <span class="stat-name">Zgadnięte miasta:</span>
+                        <span class="stat-value special" id="hardcoreCitiesGuessed">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Nieudane próby:</span>
+                        <span class="stat-value error" id="hardcoreCitiesFailed">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Najdłuższa seria:</span>
+                        <span class="stat-value special" id="hardcoreMaxStreak">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Najszybsze zgadnięcie:</span>
+                        <span class="stat-value special" id="hardcoreFastestGuess">999s</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Utracone punkty:</span>
+                        <span class="stat-value error" id="hardcorePointsLost">0</span>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <button id="resetStatsButton" class="reset-stats-btn">🗑️ Resetuj statystyki</button>
+            <button id="backToLobbyFromStatistics" class="back-btn">Powrót do lobby</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
